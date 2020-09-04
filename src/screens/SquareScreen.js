@@ -6,22 +6,10 @@ import ColorCounter from '../components/ColorCounter';
 const COLOR_INCREMENT = 15;
 
 const reducer = (state, action) => {
-  const { colorToChange, amount } = action;
-  return (state[colorToChange] + amount > 255) || (state[colorToChange] + amount < 0)
+  const { type, payload } = action;
+  return (state[type] + payload > 255) || (state[type] + payload < 0)
     ? state
-    : { ...state, [colorToChange]: state[colorToChange] + amount}
-  /* code from Grider (my repacement above)
-  switch (action.colorToChange) {
-    case 'red':
-      return { ...state, red: state.red + action.amount };
-    case 'green':
-      return { ...state, green: state.green + action.amount };
-    case 'blue':
-      return { ...state, blue: state.blue + action.amount };
-    default:
-      return state;
-  }
-  */
+    : { ...state, [type]: state[type] + payload}
 };
 
 const SquareScreen = () => {
@@ -32,18 +20,18 @@ const SquareScreen = () => {
     <View>
       <ColorCounter
         color="Red"
-        onDecrease={() => dispatch({ colorToChange: 'red', amount: -1 * COLOR_INCREMENT}) }
-        onIncrease={() => dispatch({ colorToChange: 'red', amount: COLOR_INCREMENT}) }
+        onDecrease={() => dispatch({ type: 'red', payload: -1 * COLOR_INCREMENT}) }
+        onIncrease={() => dispatch({ type: 'red', payload: COLOR_INCREMENT}) }
       />
       <ColorCounter
         color="Green"
-        onDecrease={() => dispatch({ colorToChange: 'green', amount: -1 * COLOR_INCREMENT}) }
-        onIncrease={() => dispatch({ colorToChange: 'green', amount: COLOR_INCREMENT}) }
+        onDecrease={() => dispatch({ type: 'green', payload: -1 * COLOR_INCREMENT}) }
+        onIncrease={() => dispatch({ type: 'green', payload: COLOR_INCREMENT}) }
       />
       <ColorCounter
         color="Blue"
-        onDecrease={() => dispatch({ colorToChange: 'blue', amount: -1 * COLOR_INCREMENT}) }
-        onIncrease={() => dispatch({ colorToChange: 'blue', amount: COLOR_INCREMENT}) }
+        onDecrease={() => dispatch({ type: 'blue', payload: -1 * COLOR_INCREMENT}) }
+        onIncrease={() => dispatch({ type: 'blue', payload: COLOR_INCREMENT}) }
       />
       <View
         style={{
